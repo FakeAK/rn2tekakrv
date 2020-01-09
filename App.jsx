@@ -1,5 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Provider } from 'react-redux';
+import Store from './src/redux/store';
+import MainNavigator from './src/navigators/TabBarNavigator';
 
 export default function App() {
   return (
