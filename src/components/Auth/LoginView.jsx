@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   StyleSheet,
@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { useNavigation } from 'react-navigation-hooks';
 import isEmail from 'validator/lib/isEmail';
+import DropdownAlert from 'react-native-dropdownalert';
 import { COLORS } from '../../common/const';
 import PrimaryButton from '../common/buttons/PrimaryButton';
 import { API } from '../../api/API';
@@ -25,7 +26,6 @@ const styles = StyleSheet.create({
     height: 250,
     width: '80%',
     alignSelf: 'center',
-    backgroundColor: 'red',
   },
   label: {
     color: '#FFF',
@@ -43,6 +43,12 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 40 / 2,
   },
+  registerButtonContainer: {
+    backgroundColor: '#000',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 40,
+  },
 });
 
 export default function LoginView() {
@@ -50,6 +56,7 @@ export default function LoginView() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginButtonState, setLoginButtonState] = useState(false);
+  const dropDownAlertRef = useRef();
 
   function changeLoginButtonState() {
     if (isEmail(email) && password.length > 0) {
@@ -65,13 +72,15 @@ export default function LoginView() {
         email,
         password,
       }).send();
-      console.log(req.payload);
-      //TokenHelper.storeTokens(req.payload.access_token);
+      TokenHelper.storeTokens(req.payload.access_token);
       navigate('Home');
-      // REDIRECT
     } catch (err) {
-      console.log(err);
+      dropDownAlertRef.current.alertWithType('error', 'Impossible de se connecter.', err.message);
     }
+  }
+
+  function goToRegister() {
+    navigate('Register');
   }
 
   useEffect(() => {
@@ -79,16 +88,27 @@ export default function LoginView() {
   }, [email, password]);
 
   return (
-    <TouchableOpacity style={{ flex: 1, backgroundColor: 'blue' }} onPress={Keyboard.dismiss} activeOpacity={1}>
+    <TouchableOpacity style={{ flex: 1 }} onPress={Keyboard.dismiss} activeOpacity={1}>
       <View style={styles.container}>
         <View style={styles.form}>
           <Text style={styles.label}>EMAIL</Text>
           <TextInput onChangeText={(text) => setEmail(text)} style={styles.field} />
           <Text style={[styles.label, { marginTop: 50 }]}>PASSWORD</Text>
           <TextInput onChangeText={(text) => setPassword(text)} style={styles.field} />
-          <PrimaryButton disabled={!loginButtonState} buttonStyle={{ marginTop: 20 }} onPress={login} title="Login" />
+          <PrimaryButton
+            disabled={!loginButtonState}
+            buttonStyle={{ marginTop: 20, opacity: loginButtonState ? 1 : 0.5 }}
+            onPress={login}
+            title="Login"
+          />
         </View>
       </View>
+      <View style={styles.registerButtonContainer}>
+        <TouchableOpacity onPress={goToRegister}>
+          <Text style={{ color: '#FFF' }}>Pas de compte ? Inscrivez-vous.</Text>
+        </TouchableOpacity>
+      </View>
+      <DropdownAlert ref={dropDownAlertRef} />
     </TouchableOpacity>
   );
 }

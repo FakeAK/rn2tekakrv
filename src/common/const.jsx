@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 
 const bellImage = require('../../assets/navigationBar/bell.png');
-const logo = require('../../assets/navigationBar/logo.png')
+const logo = require('../../assets/navigationBar/logo.png');
 
 const { StatusBarManager } = NativeModules;
 

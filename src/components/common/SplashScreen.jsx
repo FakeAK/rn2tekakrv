@@ -49,9 +49,7 @@ function SplashScreen(props) {
           navigate('Home');
         }, 2000);
       } else {
-        setTimeout(() => {
-          navigate('Login');
-        }, 2000);
+        navigate('Login');
       }
     });
   }, []);
