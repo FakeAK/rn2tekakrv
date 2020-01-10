@@ -4708,7 +4708,7 @@ qs@^6.5.0:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.1.tgz#20082c65cb78223635ab1a9eaca8875a29bf8ec9"
   integrity sha512-Cxm7/SS/y/Z3MHWSxXb8lIFqgqBowP5JMlTUFyJN88y0SGQhVmZnqFK/PeuMX9LzUyWsqqhNxIyg0jlzq946yA==
 
-query-string@^6.4.2:
+query-string@^6.1.0, query-string@^6.4.2:
   version "6.9.0"
   resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.9.0.tgz#1c3b727c370cf00f177c99f328fda2108f8fa3dd"
   integrity sha512-KG4bhCFYapExLsUHrFt+kQVEegF2agm4cpF/VNc6pZVthIfCc/GK8t8VyNIE3nyXG9DK3Tf2EGkxjR6/uRdYsA==
@@ -4776,6 +4776,18 @@ react-native-iphone-x-helper@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
   integrity sha512-/VbpIEp8tSNNHIvstuA3Swx610whci1Zpc9mqNkqn14DkMbw+ORviln2u0XyHG1kPvvwTNGZY6QpeFwxYaSdbQ==
+
+react-native-maps@^0.26.1:
+  version "0.26.1"
+  resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.26.1.tgz#6ec316259b38d259c8974448d894bd7a23101da4"
+  integrity sha512-p4VTB8YB5ZmOmDRCUpoHZkm05amZwhIo04AJMBbB9+JAR2PNNfpo0vceoWX0Mag4wnePkdzPomeWMplr/wimTg==
+
+react-native-open-maps@^0.3.4:
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/react-native-open-maps/-/react-native-open-maps-0.3.4.tgz#c63fa82ca162b1584a6ce38b9a0e2421e5086074"
+  integrity sha512-zkr8hGVs0t38vHec+6Ehh8jcdItErdD9/jX7jLduNsbVNWhoVaTQX11vKtJb9WlPSO1VrKa4IauGBAvckUYR6g==
+  dependencies:
+    query-string "^6.1.0"
 
 react-native-reanimated@^1.4.0:
   version "1.4.0"

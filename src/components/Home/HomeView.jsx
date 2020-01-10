@@ -7,6 +7,7 @@ import {
   StatusBar,
   Text,
 } from 'react-native';
+import PropTypes from 'prop-types';
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
 import DropdownAlert from 'react-native-dropdownalert';
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Home() {
+function Home(props) {
   const [events, setEvents] = useState([]);
   const [trainings, setTrainings] = useState([]);
   const [stores, setStores] = useState([]);
@@ -55,7 +56,6 @@ export default function Home() {
       setEvents(req.payload.events);
       eventsPage += 1;
     } catch (err) {
-      console.log(err);
       dropDownAlertRef.current.alertWithType('error', 'Une erreur est survenue.', 'Impossible de récupérer les événements.');
     }
   }
@@ -186,7 +186,7 @@ export default function Home() {
           style={{ flex: 1, marginTop: 10 }}
           data={trainings}
           keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => <TrainingCell training={item} />}
+          renderItem={({ item }) => <TrainingCell training={item} navigation={props.navigation} />}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingHorizontal: 10 }}
@@ -219,3 +219,9 @@ export default function Home() {
     </View>
   );
 }
+
+Home.propTypes = {
+  navigation: PropTypes.shape({}).isRequired,
+};
+
+export default Home;

@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNavigation } from 'react-navigation-hooks';
 import {
   View,
   Text,
@@ -82,11 +81,10 @@ const styles = StyleSheet.create({
 });
 
 function TrainingCell(props) {
-  const { navigate } = useNavigation();
-  const { training } = props;
+  const { training, navigation } = props;
 
   function cellPressed() {
-    navigate('Training', { id: props.training.id });
+    navigation.navigate('Training', { id: training.id });
   }
 
   return (
@@ -137,6 +135,9 @@ function TrainingCell(props) {
 }
 
 TrainingCell.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
   training: PropTypes.shape({
     id: PropTypes.number.isRequired,
     photo_cover: PropTypes.string.isRequired,

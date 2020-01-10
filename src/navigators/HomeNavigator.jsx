@@ -24,6 +24,17 @@ const HomeNavigator = createStackNavigator({
       ),
     }),
   },
+  Training: {
+    screen: TrainingView,
+    navigationOptions: {
+      headerBackTitle: 'Retour',
+      headerTintColor: '#000',
+      headerShown: false,
+      headerStyle: {
+        backgroundColor: COLORS.PRIMARY_COLOR,
+      },
+    },
+  },
   /* Notifications: {
     screen: NotificationsView,
     navigationOptions: {
@@ -33,18 +44,8 @@ const HomeNavigator = createStackNavigator({
         backgroundColor: COLORS.PRIMARY_COLOR,
       },
     },
-  },
-  Training: {
-    screen: TrainingView,
-    navigationOptions: {
-      headerBackTitle: 'Retour',
-      headerTintColor: '#000',
-      header: null,
-      headerStyle: {
-        backgroundColor: COLORS.PRIMARY_COLOR,
-      },
-    },
   }, */
+
 });
 
 HomeNavigator.navigationOptions = ({ navigation }) => {
