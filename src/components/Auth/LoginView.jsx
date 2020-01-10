@@ -7,7 +7,9 @@ import {
   Keyboard,
   TouchableOpacity,
 } from 'react-native';
+import PropTypes from 'prop-types';
 import { useNavigation } from 'react-navigation-hooks';
+import { connect } from 'react-redux';
 import isEmail from 'validator/lib/isEmail';
 import DropdownAlert from 'react-native-dropdownalert';
 import { COLORS } from '../../common/const';
@@ -51,7 +53,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function LoginView() {
+function LoginView(props) {
   const { navigate } = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -66,6 +68,16 @@ export default function LoginView() {
     }
   }
 
+  async function getNotificationsCount() {
+    let notificationsCount = await Request
+      .get()
+      .to(API.NOTIFICATIONS.GET_NOTIFICATIONS_UNREAD_COUNT)
+      .send();
+    notificationsCount = notificationsCount.payload.count;
+    const action = { type: 'NOTIFICATIONS_COUNT', notifications_count: notificationsCount };
+    props.dispatch(action);
+  }
+
   async function login() {
     try {
       const req = await Request.post().to(API.AUTH.LOGIN).payload({
@@ -73,6 +85,7 @@ export default function LoginView() {
         password,
       }).send();
       TokenHelper.storeTokens(req.payload.access_token);
+      getNotificationsCount();
       navigate('Home');
     } catch (err) {
       dropDownAlertRef.current.alertWithType('error', 'Impossible de se connecter.', err.message);
@@ -112,3 +125,10 @@ export default function LoginView() {
     </TouchableOpacity>
   );
 }
+
+LoginView.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => state;
+export default connect(mapStateToProps)(LoginView);
