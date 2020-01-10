@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNavigation } from 'react-navigation-hooks';
 import {
   View,
   Text,
@@ -82,15 +81,10 @@ const styles = StyleSheet.create({
 });
 
 function EventCell(props) {
-  const { navigate } = useNavigation();
   const { event } = props;
 
-  function cellPressed() {
-    navigate('Event', { id: event.id });
-  }
-
   return (
-    <TouchableOpacity onPress={cellPressed} activeOpacity={1} style={styles.container}>
+    <TouchableOpacity activeOpacity={1} style={styles.container}>
       <View style={styles.shadowBox}>
         <View style={styles.cell}>
           <View>

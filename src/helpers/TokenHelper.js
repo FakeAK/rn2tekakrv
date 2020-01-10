@@ -5,7 +5,7 @@ export default function TokenHelper() { }
 
 TokenHelper.storeTokens = async (accessToken) => {
   Tokens.ACCESS_TOKEN = accessToken;
-  //SecureStore.setItemAsync('accessToken', accessToken);
+  SecureStore.setItemAsync('accessToken', accessToken);
 };
 
 TokenHelper.getTokens = async () => {

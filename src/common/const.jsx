@@ -8,6 +8,7 @@ const bellImage = require('../../assets/navigationBar/bell.png');
 const logo = require('../../assets/navigationBar/logo.png');
 const backIcon = require('../../assets/navigation/back.png');
 const chainIcon = require('../../assets/navigation/chain.png');
+const logout = require('../../assets/navigationBar/logout.png');
 
 const { StatusBarManager } = NativeModules;
 
@@ -33,12 +34,14 @@ export const COLORS = {
 
 export const IconsButtonNavigationBar = {
   NOTIFICATIONS: bellImage,
+  LOGOUT: logout,
 };
 
 export const ICONS = {
   LOGO: logo,
   BACK_ICON: backIcon,
   CHAIN: chainIcon,
+  LOGOUT: logout,
 };
 
 export const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBarManager.HEIGHT;
