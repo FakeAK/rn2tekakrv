@@ -74,7 +74,7 @@ function Home(props) {
 
   async function getTrainings() {
     try {
-      const req = await Request.get().to(API.FEED.GET_TRAININGS(trainingsPage, true)).send();
+      const req = await Request.get().to(API.FEED.GET_TRAININGS(1, true)).send();
       setTrainings(req.payload);
       trainingsPage += 1;
     } catch (err) {
@@ -147,12 +147,12 @@ function Home(props) {
 
   useEffect(() => {
     getLocationAsync();
-    getEvents();
-    getTrainings();
   }, []);
 
   useEffect(() => {
     getStores();
+    getEvents();
+    getTrainings();
   }, [userLocation]);
 
   return (

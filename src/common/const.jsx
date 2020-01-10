@@ -9,6 +9,8 @@ const logo = require('../../assets/navigationBar/logo.png');
 const backIcon = require('../../assets/navigation/back.png');
 const chainIcon = require('../../assets/navigation/chain.png');
 const logout = require('../../assets/navigationBar/logout.png');
+const pinIcon = require('../../assets/training/pin.png');
+const calendarIcon = require('../../assets/training/calendar.png');
 
 const { StatusBarManager } = NativeModules;
 
@@ -42,6 +44,8 @@ export const ICONS = {
   BACK_ICON: backIcon,
   CHAIN: chainIcon,
   LOGOUT: logout,
+  PIN: pinIcon,
+  CALENDAR: calendarIcon,
 };
 
 export const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBarManager.HEIGHT;

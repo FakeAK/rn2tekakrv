@@ -186,41 +186,48 @@ function TrainingView(props) {
             </View>
           </View>
 
-          <View style={{
-            alignItems: 'center',
-            backgroundColor: '#FFF',
-            addingBottom: 10,
-            justifyContent: 'center',
-          }}
-          >
-            <Text style={{
-              color: COLORS.PRIMARY_COLOR,
-              fontSize: 18,
-              fontWeight: '700',
-              marginTop: 20,
-            }}
-            >
-              Organisateur
-            </Text>
-            <View style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginTop: 10,
-            }}
-            >
-              <Image
-                source={{ uri: trainingData.trainingOwner.avatar }}
-                style={{
-                  height: 40,
-                  justifyContent: 'center',
-                  width: 40,
-                  borderRadius: 40 / 2,
+          {
+            trainingData.trainingOwner !== null
+            && (
+              <View style={{
+                alignItems: 'center',
+                backgroundColor: '#FFF',
+                addingBottom: 10,
+                justifyContent: 'center',
+              }}
+              >
+                <Text style={{
+                  color: COLORS.PRIMARY_COLOR,
+                  fontSize: 18,
+                  fontWeight: '700',
+                  marginTop: 20,
                 }}
-              />
-              <Text numberOfLines={1} style={{ marginLeft: 10, fontSize: 16, fontWeight: '500' }}>{trainingData.trainingOwner.name}</Text>
-            </View>
-          </View>
+                >
+                  Organisateur
+                </Text>
+
+                <View style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginTop: 10,
+                }}
+                >
+                  <Image
+                    source={{ uri: trainingData.trainingOwner.avatar }}
+                    style={{
+                      height: 40,
+                      justifyContent: 'center',
+                      width: 40,
+                      borderRadius: 40 / 2,
+                    }}
+                  />
+                  <Text numberOfLines={1} style={{ marginLeft: 10, fontSize: 16, fontWeight: '500' }}>{trainingData.trainingOwner.name}</Text>
+                </View>
+              </View>
+            )
+          }
+
 
           <View style={{
             flexDirection: 'row',
