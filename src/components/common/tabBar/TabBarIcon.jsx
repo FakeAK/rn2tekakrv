@@ -1,9 +1,10 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
 import { COLORS } from '../../../common/const';
 
-export default function TabBarIcon(props) {
-  const { focused, icon } = props;
+function TabBarIcon(props) {
+  const { focused, icon } = props;
 
   const styles = StyleSheet.create({
     iconImage: {
@@ -28,3 +29,14 @@ export default function TabBarIcon(props) {
     </View>
   );
 }
+
+TabBarIcon.propTypes = {
+  focused: PropTypes.bool,
+  icon: PropTypes.number.isRequired,
+};
+
+TabBarIcon.defaultProps = {
+  focused: false,
+};
+
+export default TabBarIcon;

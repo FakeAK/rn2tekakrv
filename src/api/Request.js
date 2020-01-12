@@ -62,7 +62,7 @@ export default class Request {
 
   static async send() {
     this.headers = {
-      'Content-Type': 'application/json',
+      'Content-Type': this.isMultipart ? 'multipart/form-data' : 'application/json',
       authorization: `Bearer ${Tokens.ACCESS_TOKEN}`,
     };
 

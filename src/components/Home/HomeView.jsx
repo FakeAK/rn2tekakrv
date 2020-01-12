@@ -73,13 +73,25 @@ function Home(props) {
   }
 
   async function getTrainings() {
-    try {
-      const req = await Request.get().to(API.FEED.GET_TRAININGS(1, true)).send();
-      setTrainings(req.payload);
-      trainingsPage += 1;
-    } catch (err) {
-      dropDownAlertRef.current.alertWithType('error', 'Une erreur est survenue.', 'Impossible de récupérer les entraînements.');
+    let latitude = null;
+    let longitude = null;
+
+    if (userLocation && userLocation.coords.latitude && userLocation.coords.longitude) {
+      latitude = userLocation.coords.latitude;
+      longitude = userLocation.coords.longitude;
     }
+
+    const req = await Request
+      .get()
+      .to(API.FEED.GET_TRAININGS(
+        1,
+        true,
+        latitude,
+        longitude,
+      ))
+      .send();
+    setTrainings(req.payload);
+    trainingsPage += 1;
   }
 
   async function loadMoreTrainings() {
@@ -150,8 +162,8 @@ function Home(props) {
   }, []);
 
   useEffect(() => {
-    getStores();
     getEvents();
+    getStores();
     getTrainings();
   }, [userLocation]);
 

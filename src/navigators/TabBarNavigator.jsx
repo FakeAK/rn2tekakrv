@@ -14,28 +14,29 @@ const iconsTabBar = {
   PROFILE: PROFILE_ICON,
 };
 
-export const TabBarNavigator = createBottomTabNavigator({
+function tabBarIcon(navigation) {
+  const { routeName } = navigation.state;
+  let icon;
+  switch (routeName) {
+    case 'Home':
+      icon = iconsTabBar.HOME;
+      break;
+    case 'Profile':
+      icon = iconsTabBar.PROFILE;
+      break;
+    default:
+      break;
+  }
+
+  return <TabBarIcon icon={icon} />;
+}
+
+const TabBarNavigator = createBottomTabNavigator({
   Home: HomeNavigator,
   Profile: ProfileNavigator,
-},
-{
+}, {
   defaultNavigationOptions: ({ navigation }) => ({
-    tabBarIcon: ({ focused }) => {
-      const { routeName } = navigation.state;
-      let icon;
-      switch (routeName) {
-        case 'Home':
-          icon = iconsTabBar.HOME;
-          break;
-        case 'Profile':
-          icon = iconsTabBar.PROFILE;
-          break;
-        default:
-          break;
-      }
-
-      return <TabBarIcon focused={focused} icon={icon} />;
-    },
+    tabBarIcon: tabBarIcon(navigation),
   }),
   tabBarOptions: {
     showLabel: false,

@@ -6,6 +6,7 @@ import {
   Image,
   StatusBar,
   Share,
+  Platform,
 } from 'react-native';
 import {
   ScrollView,
@@ -299,7 +300,8 @@ function TrainingView(props) {
             </View>
 
             {
-              (!Number.isNaN(trainingData.latitude) && !Number.isNaN(trainingData.longitude))
+              (Platform.OS === 'ios'
+                && (!Number.isNaN(trainingData.latitude) && !Number.isNaN(trainingData.longitude)))
               && (
                 <MapView
                   style={styles.map}

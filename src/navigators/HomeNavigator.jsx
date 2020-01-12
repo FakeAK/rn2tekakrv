@@ -1,11 +1,8 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation-stack';
-import { createAppContainer } from 'react-navigation';
 import NavigationBarButtonWithBadge from '../components/common/navigationBar/NavigationBarButtonWithBadge';
 import HomeView from '../components/Home/HomeView';
 import TrainingView from '../components/Trainings/TrainingView';
-import LoginView from '../components/Auth/LoginView';
-import NotificationsView from '../components/Notifications/NotificationsView';
 import { COLORS, IconsButtonNavigationBar } from '../common/const';
 import HeaderTitle from '../components/common/navigationBar/HeaderTitle';
 import UserHelper from '../helpers/UserHelper';
@@ -44,17 +41,6 @@ const HomeNavigator = createStackNavigator({
       },
     },
   },
-  /* Notifications: {
-    screen: NotificationsView,
-    navigationOptions: {
-      title: 'Notifications',
-      headerTintColor: '#000',
-      headerStyle: {
-        backgroundColor: COLORS.PRIMARY_COLOR,
-      },
-    },
-  }, */
-
 });
 
 HomeNavigator.navigationOptions = ({ navigation }) => {

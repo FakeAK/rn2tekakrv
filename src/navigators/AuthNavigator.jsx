@@ -4,6 +4,7 @@ import SplashScreen from '../components/common/SplashScreen';
 import LoginView from '../components/Auth/LoginView';
 import RegisterView from '../components/Auth/RegisterView';
 import MainNavigator from './TabBarNavigator';
+import { COLORS } from '../common/const';
 
 const AuthNavigator = createStackNavigator({
   SplashScreen: {
@@ -21,7 +22,11 @@ const AuthNavigator = createStackNavigator({
   Register: {
     screen: RegisterView,
     navigationOptions: {
-      headerShown: false,
+      headerTintColor: '#000',
+      headerTitle: '',
+      headerStyle: {
+        backgroundColor: COLORS.PRIMARY_COLOR,
+      },
     },
   },
   Home: {
