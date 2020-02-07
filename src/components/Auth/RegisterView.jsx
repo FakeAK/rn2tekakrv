@@ -107,43 +107,42 @@ export default function RegisterView() {
   const dropDownAlertRef = useRef();
 
   async function registerButtonTapped() {
-    const formdata = new FormData();
-
-    formdata.append('email', email);
-    formdata.append('password', password);
-    formdata.append('first_name', firstName);
-    formdata.append('last_name', lastName);
-    formdata.append('gender', gender);
-    formdata.append('birthday', birthdate);
-    formdata.append('address', address);
-    formdata.append('city', city);
-    formdata.append('country', country);
-    formdata.append('disciplines', JSON.stringify({ disciplines }));
-    formdata.append('medical_certif', {
-      name: 'medical_certif.png',
-      type: 'image/jpeg',
-      uri: Platform.OS === 'android' ? avatar : avatar.replace('file://', ''),
-    });
-    formdata.append('license', {
-      name: 'license.png',
-      type: 'image/jpeg',
-      uri: Platform.OS === 'android' ? avatar : avatar.replace('file://', ''),
-    });
-    formdata.append('avatar', {
-      name: 'avatar.png',
-      type: 'image/jpeg',
-      uri: Platform.OS === 'android' ? avatar : avatar.replace('file://', ''),
-    });
+    const data = {
+      email,
+      password,
+      first_name: firstName,
+      last_name: lastName,
+      gender,
+      birthday: birthdate,
+      address,
+      city,
+      country,
+      disciplines: JSON.stringify({ disciplines }),
+    };
 
     try {
       const req = await Request
         .post()
         .to(API.AUTH.SIGNUP)
-        .multipart()
-        .payload(formdata)
+        .payload(data)
         .send();
 
       TokenHelper.storeTokens(req.payload.access_token);
+
+      const pp = new FormData();
+      pp.append('avatar', {
+        name: 'avatar.png',
+        type: 'image/png',
+        uri: avatar,
+      });
+
+      await Request
+        .put()
+        .to(API.USER.ME)
+        .multipart()
+        .payload(pp)
+        .send();
+
       navigate('Home');
     } catch (err) {
       dropDownAlertRef.current.alertWithType('error', 'Impossible de s\'inscrire.', err.message);

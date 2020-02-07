@@ -47,9 +47,18 @@ export default class Request {
     return this;
   }
 
-  static setHeaders(headers) {
-    this.headers = headers;
-    return this;
+  static setHeaders() {
+    const headers = {
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${Tokens.ACCESS_TOKEN}`,
+    };
+
+    if (this.isMultipart !== undefined && this.isMultipart === true) {
+      delete headers['Content-Type']; // multipart request must not have a content-type header
+      // this.headers['Content-Type'] = 'multipart/form-data';
+    }
+
+    return headers;
   }
 
   static body() {
@@ -68,10 +77,11 @@ export default class Request {
 
     const request = await fetch(this.endpoint, {
       method: this.method,
-      headers: this.headers,
+      headers: this.setHeaders(),
       body: this.body(),
     });
 
+    this.isMultipart = false;
     const response = await this.formatResponse(request);
     return response;
   }
