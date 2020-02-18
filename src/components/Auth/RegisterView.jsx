@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   StyleSheet,
-  TextInput,
   Text,
   ScrollView,
   TouchableOpacity,
@@ -20,6 +19,7 @@ import { COLORS } from '../../common/const';
 import Request from '../../api/Request';
 import { API } from '../../api/API';
 import TokenHelper from '../../helpers/TokenHelper';
+import Input from './StyleComponents/RegisterInput';
 
 const styles = StyleSheet.create({
   container: {
@@ -204,39 +204,10 @@ export default function RegisterView() {
         >
           REGISTER
         </Text>
-        <View style={styles.fieldContainer}>
-          <TextInput style={styles.input} onChangeText={(text) => setEmail(text)} />
-          <View style={styles.labelContainer}>
-            <Text style={styles.label}>
-              EMAIL
-            </Text>
-          </View>
-        </View>
-        <View style={styles.fieldContainer}>
-          <TextInput style={styles.input} onChangeText={(text) => setPassword(text)} />
-          <View style={styles.labelContainer}>
-            <Text style={styles.label}>
-              PASSWORD
-            </Text>
-          </View>
-        </View>
-        <View style={styles.fieldContainer}>
-          <TextInput style={styles.input} onChangeText={(text) => setFirstName(text)} />
-          <View style={styles.labelContainer}>
-            <Text style={styles.label}>
-              FIRST NAME
-            </Text>
-          </View>
-        </View>
-        <View style={styles.fieldContainer}>
-          <TextInput style={styles.input} onChangeText={(text) => setLastName(text)} />
-          <View style={styles.labelContainer}>
-            <Text style={styles.label}>
-              LAST NAME
-            </Text>
-          </View>
-        </View>
-
+        <Input label="EMAIL" onChange={(text) => setEmail(text)} />
+        <Input label="PASSWORD" onChange={(text) => setPassword(text)} />
+        <Input label="FIRST NAME" onChange={(text) => setFirstName(text)} />
+        <Input label="LAST NAME" onChange={(text) => setLastName(text)} />
 
         <Text style={{
           color: '#FFF',
@@ -253,7 +224,7 @@ export default function RegisterView() {
           && (
             <DateTimePicker
               style={{ backgroundColor: '#FFF', marginTop: 10 }}
-              value={new Date()}
+              value={birthdate}
               mode="date"
               is24Hour
               display="default"

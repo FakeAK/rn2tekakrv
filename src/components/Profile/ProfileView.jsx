@@ -6,20 +6,15 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
-  StatusBar,
   Image,
   Platform,
 } from 'react-native';
-import { useNavigation } from 'react-navigation-hooks';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import isEmail from 'validator/lib/isEmail';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import DropdownAlert from 'react-native-dropdownalert';
 import { COLORS } from '../../common/const';
 import Request from '../../api/Request';
 import { API } from '../../api/API';
-import {Tokens} from '../../common/const';
 
 const styles = StyleSheet.create({
   container: {
@@ -90,12 +85,9 @@ const styles = StyleSheet.create({
 });
 
 export default function RegisterView() {
-  const { navigate } = useNavigation();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [avatar, setAvatar] = useState('');
-  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
-  const [showPicker, setShowPicker] = useState(false);
+  const [avatar, setAvatar] = useState(null);
   const dropDownAlertRef = useRef();
 
   async function pickImage() {
@@ -107,7 +99,7 @@ export default function RegisterView() {
     });
 
     if (!result.cancelled) {
-      setAvatar(result.uri);
+      setAvatar(result);
     }
   }
 
@@ -125,20 +117,29 @@ export default function RegisterView() {
   async function updateUser() {
     const formData = new FormData();
 
-    formData.append('first_name', firstName);
-    formData.append('last_name', lastName);
-    formData.append('avatar', avatar);
-    console.log(firstName);
-    console.log(lastName);
-    console.log(avatar);
+    formData.append('avatar', {
+      name: 'avatar.png',
+      type: avatar.type,
+      uri: Platform.OS === 'android' ? avatar.uri : avatar.uri.replace('file://', ''),
+    });
+
     try {
       await Request
-      .put()
-      .to(API.USER.ME)
-      .multipart()
-      .payload(formData)
-      .send();
-    } catch(err) {
+        .put()
+        .to(API.USER.ME)
+        .multipart()
+        .payload(formData)
+        .send();
+
+      await Request
+        .put()
+        .to(API.USER.ME)
+        .payload({
+          first_name: firstName,
+          last_name: lastName,
+        })
+        .send();
+    } catch (err) {
       dropDownAlertRef.current.alertWithType('error', 'Une erreur est survenue.', 'Impossible d\'update les informations de votre profil.');
     }
   }
@@ -146,15 +147,20 @@ export default function RegisterView() {
   async function getInformations() {
     try {
       const req = await await Request
-      .get()
-      .to(API.USER.ME)
-      .send();
+        .get()
+        .to(API.USER.ME)
+        .send();
       setFirstName(req.user.first_name);
       setLastName(req.user.last_name);
-      setAvatar(req.user.avatar);
+      setAvatar({
+        uri: req.user.avatar,
+      });
     } catch (err) {
-      console.log(err);
-      dropDownAlertRef.current.alertWithType('error', 'Une erreur est survenue.', 'Impossible de récupérer les informations de votre profil.');
+      dropDownAlertRef.current.alertWithType(
+        'error',
+        'Une erreur est survenue.',
+        'Impossible de récupérer les informations de votre profil.',
+      );
     }
   }
 
@@ -177,7 +183,11 @@ export default function RegisterView() {
           PROFILE
         </Text>
         <View style={styles.fieldContainer}>
-          <TextInput style={styles.input} onChangeText={(text) => setFirstName(text)} value={firstName} />
+          <TextInput
+            style={styles.input}
+            onChangeText={(text) => setFirstName(text)}
+            value={firstName}
+          />
           <View style={styles.labelContainer}>
             <Text style={styles.label}>
               FIRST NAME
@@ -185,7 +195,11 @@ export default function RegisterView() {
           </View>
         </View>
         <View style={styles.fieldContainer}>
-          <TextInput style={styles.input} onChangeText={(text) => setLastName(text)} value={lastName} />
+          <TextInput
+            style={styles.input}
+            onChangeText={(text) => setLastName(text)}
+            value={lastName}
+          />
           <View style={styles.labelContainer}>
             <Text style={styles.label}>
               LAST NAME
@@ -194,13 +208,12 @@ export default function RegisterView() {
         </View>
         <TouchableOpacity style={styles.imagePicker} onPress={chooseavatarButtonPressed}>
           {
-            avatar.length > 0
-            && <Image source={{ uri: avatar }} style={styles.avatar} resizeMode="cover" />
+            avatar
+            && <Image source={{ uri: avatar.uri }} style={styles.avatar} resizeMode="cover" />
           }
 
           {
-            avatar.length === 0
-            && (
+            !avatar && (
               <Text style={{
                 color: '#FFF',
                 alignSelf: 'center',
@@ -220,7 +233,7 @@ export default function RegisterView() {
           style={[styles.registerButton]}
         >
           <Text style={styles.registerText}>
-            {'Update'}
+            Update
           </Text>
         </TouchableOpacity>
       </ScrollView>
@@ -228,4 +241,3 @@ export default function RegisterView() {
     </View>
   );
 }
-
