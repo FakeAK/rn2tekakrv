@@ -5,6 +5,7 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
+import PropTypes from 'prop-types';
 
 const styles = StyleSheet.create({
   label: {
@@ -41,15 +42,20 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function RegisterInput(props) {
+export default function RegisterInput({ label, onChange }) {
   return (
     <View style={styles.fieldContainer}>
-      <TextInput style={styles.input} onChangeText={(text) => props.onChange(text)} />
+      <TextInput style={styles.input} onChangeText={(text) => onChange(text)} />
       <View style={styles.labelContainer}>
         <Text style={styles.label}>
-          {props.label}
+          {label}
         </Text>
       </View>
     </View>
   );
 }
+
+RegisterInput.propTypes = {
+  label: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
