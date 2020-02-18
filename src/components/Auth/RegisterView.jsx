@@ -197,9 +197,11 @@ export default function RegisterView() {
           alignSelf: 'center',
           color: '#FFF',
           fontSize: 20,
+          width: '100%',
           fontWeight: '600',
           marginTop: 70,
           marginBottom: 30,
+          textAlign: 'center',
         }}
         >
           REGISTER

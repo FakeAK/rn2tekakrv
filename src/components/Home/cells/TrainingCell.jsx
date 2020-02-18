@@ -120,13 +120,6 @@ function TrainingCell(props) {
                 {TranslationHelper.translate(training.disciplines[0])}
               </Text>
             </View>
-            <View style={[styles.labelContainer, { marginLeft: 5, backgroundColor: '#6C6C6C' }]}>
-              <Text style={[styles.label, { color: '#FFF' }]}>
-                {training.nbParticipant}
-                {' '}
-                participants
-              </Text>
-            </View>
           </View>
         </View>
       </View>
