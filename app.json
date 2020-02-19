@@ -9,7 +9,7 @@
       "android",
       "web"
     ],
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -25,6 +25,18 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "sportsnconnect",
+            "project": "rn2tek",
+            "authToken": "e6e894410d5b49c2a65b850973b19a5893fa33149281427185b915446ad0557d"
+          }
+        }
+      ]
     }
   }
 }

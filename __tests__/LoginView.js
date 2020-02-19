@@ -1,4 +1,3 @@
-import React from 'react';
 import LoginView from '../src/components/Auth/LoginView';
 
 import renderer from 'react-test-renderer';
