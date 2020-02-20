@@ -59,6 +59,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.7.0",
+    "expo-cli": "^3.13.1",
     "jest": "^25.1.0",
     "jest-expo": "^36.0.1"
   },
