@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 const styles = StyleSheet.create({
   label: {
     fontWeight: '500',
-    flex: 1,
+    width: '100%',
     color: '#FFF',
   },
   labelContainer: {
