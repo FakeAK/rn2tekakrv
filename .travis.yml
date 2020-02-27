@@ -19,5 +19,5 @@ jobs:
       node_js: lts/*
       script:
         - npm ci
-        - npx expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+        - npx expo login --non-interactive -u arthur.kleiber@epitech.eu
         - npx expo publish --non-interactive
